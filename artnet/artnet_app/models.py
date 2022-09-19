@@ -36,4 +36,21 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse("user-details", args=[str(self.user.id)])
 
+@receiver(post_save, sender=User)
+def update_profile_signal(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+class SimpleImageUpload(models.Model):
+        normal_image=models.ImageField(upload_to='temp_image_upload/',validators=[FileExtensionValidator(['jpg','jpeg'])])
+        
+class ImageUploadModel(models.Model):
+        """A model for image upload form ."""
+        artwork_name=models.CharField(max_length=200,default=None,help_text='Enter a artwork name')
+        ordinary_image=models.ImageField(upload_to='temp',validators=[FileExtensionValidator(['jpg','jpeg'])])
+        artwork_image=models.ImageField(upload_to='temp_image_upload_1/',validators=[FileExtensionValidator(['jpg','jpeg'])])
+class ImageUploadModel_2(models.Model):
+        """This model is used for image upload form """
+        artwork_name=models.CharField(max_length=200,default=None,help_text='Enter a artwork name')
+        ordinary_image=models.ImageField(upload_to='temp_image_upload_2/',validators=[FileExtensionValidator(['jpg','jpeg'])])
 
