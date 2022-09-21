@@ -1,0 +1,17 @@
+{% extends 'artnetapp/base.html' %} 
+{% block content %}
+<h3>
+    Welcome!
+</h3>
+
+
+<img  alt="welcome image" src="https://i.ibb.co/QQWzZzJ/Artnet.png"/>
+{%if user.is_authenticated %}
+<h1>
+    &#127863; Hello {{user.first_name}} {{user.last_name}}!
+</h1>
+{% else %}
+<a href="{% url 'login' %}" ><button>Login</button></a>
+<a href="{% url 'signup' %}" ><button> Signup </button></a>
+{% endif %}
+{% endblock %}
