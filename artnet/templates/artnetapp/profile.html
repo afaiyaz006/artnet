@@ -1,0 +1,70 @@
+{% extends 'artnetapp/base.html' %}
+{% block content %}
+
+<article>
+    <img src='{{user.profile.avatar_link}}' height=30% width=20%>
+    <h1> {{user.first_name}} {{user.last_name}} </h1>
+    {% if Success %}
+        <blockquote> Artstyle submission successfull </blockquote>
+    {% endif %}
+    <table>
+        <tbody>
+            <tr>
+                <td>First Name: </td>
+                <td>{{user.first_name}}</td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td>{{user.last_name}}</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td> {{user.email}}</td>
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td>{{user.profile.gender}}</td>
+            </tr>
+            <tr>
+                <td>Occupation: </td>
+                <td>{{user.profile.occupation}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <figure>
+        <a href="{% url 'create_artwork' %}"><button> Create ArtWork </button></a>
+        <a href="{% url 'submit_artstyle' %}"><button>Submit Artstyles</button></a>
+    </figure>
+</article>
+
+<article>
+   <details>
+        <summary>ArtWorks</summary>
+       
+        {% for artwork in artworks%}
+            <section>
+                <a href='{{artwork.get_absolute_url}}'><h4> {{artwork.name}}</h4></a>
+                <img src='{{artwork.artwork_image.url}}'/>
+              
+            </section>
+            
+        {% endfor %}
+
+   </details>
+   <details>
+    <summary>Artstyles</summary>
+   
+    {% for artstyle in artstyles%}
+        <section>
+            <h4>{{artstyle.style_name}}</h4>
+            <img src='{{artstyle.artStyle_image.url}}'/>
+            <figure>
+            <a href='{{artstyle.get_absolute_url}}'>See Details</a>
+            </figure>
+        </section>
+    {% endfor %}
+
+    </details>
+</article>
+{% endblock %}
