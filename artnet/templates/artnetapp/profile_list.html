@@ -1,0 +1,6 @@
+{% extends 'artnetapp/base.html' %}
+{% block content %}
+    {% for  profile in object_list %}
+        <a href='{{profile.get_absolute_url}}'>{{profile.user.first_name}}</a>
+    {% endfor %}
+{% endblock %}
