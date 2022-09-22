@@ -16,6 +16,12 @@ OCCUPATIONS=(
     ('Student','Student'),
     ('Teacher','Teacher'),
 )
+
+IS_FAMOUS=(
+    ('Yes','Yes'),
+    ('No','No')
+)
+
 class Profile(models.Model):
     """
     Model representing additional user information
@@ -50,7 +56,16 @@ class ArtStyle(models.Model):
 
     style_name=models.CharField(max_length=200)
     artStyle_image=models.ImageField(upload_to='artstyle_images/',validators=[FileExtensionValidator(['jpg','jpeg'])])
+    
+    is_famous=models.CharField(max_length=50,choices=IS_FAMOUS,default="No",null=True)
 
+    def __str__(self):
+        return self.style_name
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular Artwork instance.
+        """
+        return reverse('artstyle-detail', args=[str(self.id)])
 class SimpleImageUpload(models.Model):
         normal_image=models.ImageField(upload_to='temp_image_upload/',validators=[FileExtensionValidator(['jpg','jpeg'])])
         
