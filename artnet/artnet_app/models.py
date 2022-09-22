@@ -41,6 +41,16 @@ def update_profile_signal(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+    
+class ArtStyle(models.Model):
+    """
+    Model representing art style collections.
+    """
+    art_author=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+
+    style_name=models.CharField(max_length=200)
+    artStyle_image=models.ImageField(upload_to='artstyle_images/',validators=[FileExtensionValidator(['jpg','jpeg'])])
+
 class SimpleImageUpload(models.Model):
         normal_image=models.ImageField(upload_to='temp_image_upload/',validators=[FileExtensionValidator(['jpg','jpeg'])])
         
