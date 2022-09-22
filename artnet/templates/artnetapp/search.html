@@ -1,0 +1,45 @@
+{% extends 'artnetapp/base.html' %}
+{% block content%}
+<article>
+<form method="get" action="{% url 'search' %}">
+    <input type="text" placeholder="Search artworks or user..." name="sq"><br>
+    <button type="submit">Search</button>
+</form>
+</article>
+
+{% if artworks %}
+<h3> Artworks: </h3>
+{% for artwork in artworks %}
+    <article>
+        {{artwork.name}}
+        <a href='{{artwork.get_absolute_url}}'>See details </a>
+    </article>
+{% endfor %}
+{% else %}
+ <h3> No artworks found with the given query</h3>
+{% endif %}
+{% if users %}
+<h3> Users: </h3>
+{% for user in users %}
+    <article>
+        {{user.username}}
+        <a href='{{user.profile.get_absolute_url}}'>See details</a>
+    </article>
+{% endfor %}
+
+{% else %}
+    <h3>No Username found with the given query</h3>
+{% endif %}
+{% if artstyles %}
+<h3> Artstyles: </h3>
+{% for artstyle in artstyles %}
+    <article>
+        {{artstyle.style_name}}
+        <a href='{{artstyle.get_absolute_url}}'>See details</a>
+    </article>
+{% endfor %}
+{% else %}
+<h3>No such artstyle found </h3>
+{% endif %}
+
+{% endblock %}
