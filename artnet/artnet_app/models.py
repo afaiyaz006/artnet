@@ -66,6 +66,27 @@ class ArtStyle(models.Model):
         Returns the url to access a particular Artwork instance.
         """
         return reverse('artstyle-detail', args=[str(self.id)])
+    
+class ArtWork(models.Model):
+    """
+    Model representing a ArtWork
+    """
+    name = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    artstyle_used=models.ForeignKey(ArtStyle,on_delete=models.CASCADE,null=True)
+    artwork_image=models.ImageField(upload_to='artwork_images/')
+    
+    post_date = models.DateField(default=date.today)
+    likes = models.ManyToManyField(User,blank=True,related_name='collected_likes')
+    class Meta:
+        ordering = ["-post_date"]
+    
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular Artwork instance.
+        """
+        return reverse('artwork-detail', args=[str(self.id)])    
+    
 class SimpleImageUpload(models.Model):
         normal_image=models.ImageField(upload_to='temp_image_upload/',validators=[FileExtensionValidator(['jpg','jpeg'])])
         
