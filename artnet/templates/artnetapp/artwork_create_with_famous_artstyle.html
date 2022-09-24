@@ -1,0 +1,12 @@
+{% extends 'artnetapp/base.html'%}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    <article>
+    {% csrf_token %}
+    <table>
+     {{ form.as_table }}
+    </table>
+    <button type="submit">Create ArtWork</button>
+    </article>
+</form>
+{% endblock %}
