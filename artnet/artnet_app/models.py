@@ -85,7 +85,13 @@ class ArtWork(models.Model):
         """
         Returns the url to access a particular Artwork instance.
         """
-        return reverse('artwork-detail', args=[str(self.id)])    
+        return reverse('artwork-detail', args=[str(self.id)])
+    
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        return self.name   
     
 class SimpleImageUpload(models.Model):
         normal_image=models.ImageField(upload_to='temp_image_upload/',validators=[FileExtensionValidator(['jpg','jpeg'])])
