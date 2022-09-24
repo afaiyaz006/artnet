@@ -1,0 +1,21 @@
+{% extends 'artnetapp/base.html'%}
+{%block content%}
+<h1> 🌇</h1>
+<h1> Create artwork ! </h1>
+<form method="post" enctype="multipart/form-data">
+    <article>
+    {% csrf_token %}
+    <table>
+     {{ form.as_table }}
+    </table>
+    <button type="submit">Upload</button>
+    </article>
+</form>
+{% if recieved_data %}
+    <img src='{{recieved_data.ordinary_image.url}}'/>
+    <img src='{{recieved_data.artwork_image.url}}'/>
+    
+{% endif%}
+<b>Not statisfied?</b> <br>
+<b> <a href="{% url 'create_artwork_famous_artstyle' %}"> Create Artwork with famous artstyles </a>  instead.</b>
+{% endblock%}
