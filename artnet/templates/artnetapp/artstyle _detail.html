@@ -1,0 +1,10 @@
+{% extends "artnetapp/base.html"%}
+{% block content %}
+<article>
+        <h1>{{artstyle.style_name}}</h1>
+        <img src='{{artstyle.artStyle_image.url}}' height=600 width=800/>
+       
+        <a href="{% url 'create_artwork_artstyle' %}">Use</a>
+        
+</article>
+{% endblock %}
