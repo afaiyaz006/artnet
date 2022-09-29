@@ -1,0 +1,55 @@
+{% extends "artnetapp/base.html"%}
+{%block content%}
+<article>
+   <h3> {{artwork.name}}</h3>
+   
+   <article> 
+        <figure>
+            <img  src="{{artwork.artwork_image.url}}" height=600 width=800 >
+        </figure>
+    </article>
+    <br>
+    <article>
+        <figure>
+            <p> ArtStyle used </p>
+            <img src="{{artstyle.artStyle_image.url}}">
+            <br>
+            {% if user.is_authenticated %}
+                    <a href="{% url 'create_artwork_artstyle' %}">
+                        <button>Use Style </button>
+                    </a>
+              
+            {% endif %}
+        </figure>
+        
+    </article>
+    {% for comment in artwork.artcomment_set.all%}
+    <article>
+        
+        <img src='{{comment.author.profile.avatar_link}}' height=10% width=10%/>
+        <br> 
+        <b>
+            <a href='{{comment.author.profile.get_absolute_url}}'>{{comment.author}}</a>
+        </b>
+        <i>{{comment.post_date}}</i>
+        <br>
+        {{comment.description}}
+        
+    </article>
+    {% endfor %}
+    <br>
+    {% if user.is_authenticated %}
+        <a href="{% url 'artwork-comment' artwork.id %}"> 
+            <button>
+            Add a new comment 
+            </button>
+        </a>
+    {% else %}
+        <a href="{% url 'login' %}"> 
+            <button>
+             Login to comment    
+            </button>
+        </a>
+    {% endif %}
+</article>
+{% endblock %}
