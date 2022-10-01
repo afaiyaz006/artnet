@@ -1,0 +1,23 @@
+{% extends 'artnetapp/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+  <h1> You are already logged in </h1>
+  <p> You are not supposed to be here </p>
+{% else %}
+<h1>Sign up</h1>
+  <article>
+  
+  <form method="post">
+  <table>
+    {% csrf_token %}
+  
+    {{ form.as_table }}
+   
+  </table>
+  <figure>
+  <button type="submit">Sign Up</button>
+  </figure>
+  </form>
+</article>
+{% endif %}
+{% endblock %}
