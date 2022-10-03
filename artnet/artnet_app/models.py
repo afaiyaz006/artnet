@@ -116,3 +116,7 @@ class ArtComment(models.Model):
       # Foreign Key used because ArtComment can only have one author/User, but users can have multiple comments
     post_date = models.DateTimeField(auto_now_add=True)
     artwork= models.ForeignKey(ArtWork, on_delete=models.CASCADE)
+    
+    class Meta:
+        ordering = ["post_date"]
+
