@@ -106,3 +106,13 @@ class ImageUploadModel_2(models.Model):
         artwork_name=models.CharField(max_length=200,default=None,help_text='Enter a artwork name')
         ordinary_image=models.ImageField(upload_to='temp_image_upload_2/',validators=[FileExtensionValidator(['jpg','jpeg'])])
 
+
+class ArtComment(models.Model):
+    """
+    Model representing a comment against a Artpost.
+    """
+    description = models.TextField(max_length=1000, help_text="Enter comment about the art here.")
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+      # Foreign Key used because ArtComment can only have one author/User, but users can have multiple comments
+    post_date = models.DateTimeField(auto_now_add=True)
+    artwork= models.ForeignKey(ArtWork, on_delete=models.CASCADE)
