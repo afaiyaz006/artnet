@@ -119,4 +119,13 @@ class ArtComment(models.Model):
     
     class Meta:
         ordering = ["post_date"]
+        
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        len_title=60
+        if len(self.description)>len_title:
+            titlestring=self.description[:len_title] + '...'
+    
 
