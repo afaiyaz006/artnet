@@ -14,8 +14,7 @@
 {% if recieved_data %}
     <img src='{{recieved_data.ordinary_image.url}}'/>
     <img src='{{recieved_data.artwork_image.url}}'/>
-    
-{% endif%}
+{% endif %}
 <b>Not statisfied?</b> <br>
 <b> <a href="{% url 'create_artwork_famous_artstyle' %}"> Create Artwork with famous artstyles </a>  instead.</b>
 {% endblock%}
