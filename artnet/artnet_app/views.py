@@ -248,3 +248,16 @@ def signup(request):
         form=SignupForm()
         
     return render(request,'registration/signup.html',{'form':form})
+
+
+
+def searchview(request):
+    if request.GET:
+        q=request.GET['sq']
+        artworks=ArtWork.objects.filter(name__icontains=q)
+        users=User.objects.filter(username__icontains=q)
+        artstyles=ArtStyle.objects.filter(style_name__icontains=q)
+        return render(request,'artnetapp/search.html',{'users':users,'artworks':artworks,'artstyles':artstyles})
+    
+    return render(request,'artnetapp/search.html',{'users':None,'artworks':None})
+    
