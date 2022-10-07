@@ -1,0 +1,67 @@
+* {
+    /* Set the font globally */
+    font-family: var(--sans-font);
+}
+
+.post-link a {
+    line-height: 1;
+}
+
+.meta {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-top: -2rem;
+}
+
+.excerpt {
+    margin-bottom: 4rem;
+}
+
+nav a:hover,
+nav a.nav-current,
+nav a.current {
+    background: var(--bg);
+    color: var(--accent) !important;
+    font-weight: 700;
+    opacity: 1;
+}
+
+ul.archive {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 15px;
+}
+
+ul.archive li {
+    padding-bottom: 1rem;
+}
+
+.wrapper {
+    height: 2vh;
+    /*This part is important for centering*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typing-text {
+    width: 42ch;
+    animation: typing 2s steps(72), blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
