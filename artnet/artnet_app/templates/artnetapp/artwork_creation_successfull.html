@@ -1,0 +1,8 @@
+{% extends 'artnetapp/base.html' %}
+{% block content%}
+{% if artwork %}
+    <h1>ArtWork creation successfull!</h1>
+    <img src='{{artwork.artwork_image.url}}'/>
+    
+{% endif %}
+{% endblock %} 
