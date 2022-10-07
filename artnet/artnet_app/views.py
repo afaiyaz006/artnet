@@ -13,3 +13,19 @@ from django.urls import reverse
 from django.shortcuts import render,redirect
 from .forms import SignupForm,ArtWork_with_Famous_ArtStyle
 from django.core.paginator import Paginator
+
+# Creating my  views here.
+
+def home(request):
+    """
+    The home of the
+    webpage.
+    
+    """
+    #loading all  artworks 
+    
+    artworks=ArtWork.objects.order_by("post_date")
+    paginator=Paginator(artworks,5) # show 5 artworks per page
+    page_number=request.GET.get('page')
+    page_obj=paginator.get_page(page_number)
+    return render(request,'artnetapp/home.html',{'artworks':artworks,'page_obj':page_obj})
