@@ -1,0 +1,9 @@
+<h3>❤️{{artwork.likes.count}}</h3>      
+<button hx-post="{% url 'like_artwork' artwork.id %}" hx-target="#artwork_{{artwork.id}}" hx-swap="innerHTML">
+  {% if request.user in artwork.likes.all %}
+        UnLike
+  {% else %}
+        Like
+  {% endif %}
+</button>
+<br>
