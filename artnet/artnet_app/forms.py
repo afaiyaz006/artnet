@@ -12,3 +12,11 @@ class SignupForm(UserCreationForm):
     class Meta:
         model=User
         fields=('username','first_name','last_name','gender','occupation','email','password1','password2')
+
+class Imageform(forms.ModelForm):
+    """
+    Form for the image model
+    """
+    class Meta:
+        model=ImageUploadModel
+        fields=('artwork_name','ordinary_image','artwork_image')
