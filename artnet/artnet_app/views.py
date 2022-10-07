@@ -171,3 +171,9 @@ class ProfileListView(generic.ListView):
     model=Profile
     template_name='artnetapp/profile_list.html'
     
+class ArtWorkListView(generic.ListView):
+    """
+    Generic class based view for a list of artworks
+    """
+    model=ArtWork
+    paginate_by = 6
