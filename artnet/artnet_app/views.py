@@ -249,6 +249,21 @@ def signup(request):
         
     return render(request,'registration/signup.html',{'form':form})
 
+@login_required
+def like_artwork(request,id):
+    if request.method == "POST":
+        artwork = ArtWork.objects.get(id=id)
+        if not artwork.likes.filter(id=request.user.id).exists():
+            print(f"User ID: {request.user.id} Liked artwork Artwork ID: {artwork.id}.")
+            artwork.likes.add(request.user)
+            artwork.save() 
+            return render( request, 'artnetapp/partials/like_area.html', context={'artwork':artwork})
+        else:
+            print(f"User ID: {request.user.id} unliked Artwork ID: {artwork.id}.")
+            artwork.likes.remove(request.user)
+            artwork.save() 
+            return render( request, 'artnetapp/partials/like_area.html', context={'artwork':artwork})    
+
 
 
 def searchview(request):
