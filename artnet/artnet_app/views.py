@@ -163,3 +163,11 @@ class ProfileDetailView(generic.DetailView):
         context['artstyles']=artstyles
         context['artworks']=artworks
         return context
+
+class ProfileListView(generic.ListView):
+    """
+        Generic class based view for list view of user profiles
+    """
+    model=Profile
+    template_name='artnetapp/profile_list.html'
+    
