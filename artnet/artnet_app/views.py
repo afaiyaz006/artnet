@@ -90,3 +90,61 @@ def create_artwork_view(request):
         form=Imageform()
         
     return render(request, 'artnetapp/artwork_create.html', {'form': form})
+
+@login_required
+def famousArtWorkCreation(request):
+    if request.method=='POST':
+        form=ArtWork_with_Famous_ArtStyle(request.POST,request.FILES)
+        if form.is_valid():
+           
+            artwork_name=form.cleaned_data['artwork_name']
+            artstyle=form.cleaned_data['famous_artstyle']
+            ordinary_image=request.FILES['ordinary_image']
+            #print(f"{artstyle}-------> {type(artstyle)}")
+            #print(f"{ordinary_image}------->{type(ordinary_image)}")
+
+            image_storage=SimpleImageUpload()
+            image_storage.normal_image=ordinary_image
+            image_storage.save()
+           
+            ordinary_image_url=image_storage.normal_image.path
+            artstyle_image_url=artstyle.artStyle_image.path
+            #print(ordinary_image_url)
+            #print(artstyle_image_url)
+            created_artwork=process_image(ordinary_image_url,artstyle_image_url)#api call
+            
+            artwork=ArtWork()
+            if created_artwork:
+                artwork.name=artwork_name
+                artwork.author=request.user
+                artwork.artstyle_used=artstyle
+                artwork_file_name=str(artwork_name+".jpg")
+                artwork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(created_artwork),name=artwork_file_name),save=True)
+                
+                return render(request, 'artnetapp/artwork_creation_successfull.html', {'artwork':artwork})
+            else:
+                return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+    
+    else:
+        form=ArtWork_with_Famous_ArtStyle()    
+    return render(request,'artnetapp/artwork_create_with_famous_artstyle.html',{'form':form})
+
+
+@login_required
+def artStyleSubmitView(request):
+    if request.method=='POST':
+        form=ArtStyleForm(request.POST,request.FILES)
+        if form.is_valid():
+            print('success')
+            form.save()
+            artstyle=ArtStyle()
+            artstyle.art_author=request.user
+            artstyle.style_name=form.cleaned_data['style_name']
+            artstyle.artStyle_image=form.cleaned_data['artStyle_image']
+            artstyle.save()
+            return redirect(profileview)
+            
+    else:
+        print("empty")
+        form=ArtStyleForm()
+    return render(request,'artnetapp/artstyle_submit.html',{'form':form})
