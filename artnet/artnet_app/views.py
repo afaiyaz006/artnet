@@ -200,3 +200,13 @@ class ArtWorkDetailView(generic.DetailView):
             
             
         return context
+
+class ArtStyleDetailView(generic.DetailView):
+    model=ArtStyle
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        displayed_artstyle=self.get_object()
+        self.request.session['artstyle_id']=displayed_artstyle.id
+        context['artstyle_id']=displayed_artstyle.id
+        context['artstyle']=displayed_artstyle
+        return context
