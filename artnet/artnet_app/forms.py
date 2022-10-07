@@ -36,3 +36,9 @@ class ArtWork_with_Famous_ArtStyle(forms.Form):
     artwork_name=forms.CharField(max_length=100)
     famous_artstyle=forms.ModelChoiceField(queryset=ArtStyle.objects.filter(is_famous='Yes'))
     ordinary_image=forms.ImageField()
+
+class ArtStyleForm(forms.ModelForm):
+    
+    class Meta:
+        model=ArtStyle
+        fields=('style_name','artStyle_image')
