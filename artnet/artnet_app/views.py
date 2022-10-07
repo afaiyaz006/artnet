@@ -148,3 +148,18 @@ def artStyleSubmitView(request):
         print("empty")
         form=ArtStyleForm()
     return render(request,'artnetapp/artstyle_submit.html',{'form':form})
+
+class ProfileDetailView(generic.DetailView):
+    """
+        Generic class based view for detail view of user profile
+    """
+    model=Profile
+    template_name='artnetapp/profile_detail.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        displayed_user=self.get_object()
+        artworks=ArtWork.objects.filter(author=displayed_user.user.id)
+        artstyles=ArtStyle.objects.filter(art_author=displayed_user.user.id)
+        context['artstyles']=artstyles
+        context['artworks']=artworks
+        return context
