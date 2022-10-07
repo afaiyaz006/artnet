@@ -20,3 +20,11 @@ class Imageform(forms.ModelForm):
     class Meta:
         model=ImageUploadModel
         fields=('artwork_name','ordinary_image','artwork_image')
+
+class ArtWork_with_selected_artstyle_form(forms.ModelForm):
+    """
+        Form for the upload model of artwork with selected artstyle
+    """
+    class Meta:
+        model=ImageUploadModel_2
+        fields=('artwork_name','ordinary_image')
