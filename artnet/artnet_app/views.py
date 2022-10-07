@@ -177,3 +177,26 @@ class ArtWorkListView(generic.ListView):
     """
     model=ArtWork
     paginate_by = 6
+
+class ArtWorkDetailView(generic.DetailView):
+    """
+    Generic class-based detail view for a artwork
+    """
+    model=ArtWork
+    
+    def get_context_data(self, **kwargs):
+        """
+           Overriding this method To include associated artstyle of 
+           the artwork to be  displayed.
+        """
+        context=super().get_context_data(**kwargs)
+        displayed_artwork=self.get_object()
+        associated_artwork=displayed_artwork.artstyle_used
+        self.request.session['artstyle_id']=associated_artwork.id
+        #storing the artstyle_id so that it could be used in artwork_create view
+        context['artstyle_id']=self.request.session['artstyle_id']
+        #passing the artstyle variable to template
+        context['artstyle']=associated_artwork 
+            
+            
+        return context
