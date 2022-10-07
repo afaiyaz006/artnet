@@ -210,3 +210,41 @@ class ArtStyleDetailView(generic.DetailView):
         context['artstyle_id']=displayed_artstyle.id
         context['artstyle']=displayed_artstyle
         return context
+
+
+class ArtWorkCommentCreate(LoginRequiredMixin,generic.CreateView):
+    """
+    Artwork comment creation code.
+    """
+    model=ArtComment
+    fields=['description']
+    def get_context_data(self, **kwargs):
+        """
+        Add associated Artwork to form template so can display its title in HTML.
+        """
+        # Call the base implementation first to get a context
+        context = super(ArtWorkCommentCreate, self).get_context_data(**kwargs)
+        # Get the artwork from id and add it to the context
+        context['artwork'] = get_object_or_404(ArtWork, pk = self.kwargs['pk'])
+        return context
+
+def signup(request):
+    if request.method=='POST':
+        form=SignupForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            user.refresh_from_db()
+            user.profile.gender=form.cleaned_data.get('gender')
+            user.profile.occupation=form.cleaned_data.get('occupation')
+            avatar_url="https://avatars.dicebear.com/api/adventurer-neutral/"+str(user.username)+'.svg'+'?r=50'
+            user.profile.avatar_link=avatar_url
+            user.save()
+            raw_password=form.cleaned_data.get('password1')
+            user = authenticate(username=user.username,password=raw_password)
+            login(request,user)
+            return redirect('home')
+    else:
+        
+        form=SignupForm()
+        
+    return render(request,'registration/signup.html',{'form':form})
