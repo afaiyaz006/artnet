@@ -28,3 +28,11 @@ class ArtWork_with_selected_artstyle_form(forms.ModelForm):
     class Meta:
         model=ImageUploadModel_2
         fields=('artwork_name','ordinary_image')
+
+class ArtWork_with_Famous_ArtStyle(forms.Form):
+    """
+        Form for creating artwork with famous artstyle
+    """
+    artwork_name=forms.CharField(max_length=100)
+    famous_artstyle=forms.ModelChoiceField(queryset=ArtStyle.objects.filter(is_famous='Yes'))
+    ordinary_image=forms.ImageField()
