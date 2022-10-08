@@ -1,4 +1,4 @@
-{% extends 'artnetapp/base.html' %} 
+{% extends 'artnet_app/base.html' %} 
 {% block content %}
 <h3>
     Welcome!
@@ -28,7 +28,7 @@
                             <a href="{% url 'artwork-comment' artwork.id %}"><button>Comment</button></a>
                             <a href="{{artwork.get_absolute_url}}"><button>View Details</button></a>
                             <div id='artwork_{{artwork.id}}'>
-                                {% include  'artnetapp/partials/like_area.html' %}
+                                {% include  'artnet_app/partials/like_area.html' %}
                             </div>
                         {% endif %}
                         

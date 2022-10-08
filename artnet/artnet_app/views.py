@@ -28,7 +28,7 @@ def home(request):
     paginator=Paginator(artworks,5) # show 5 artworks per page
     page_number=request.GET.get('page')
     page_obj=paginator.get_page(page_number)
-    return render(request,'artnetapp/home.html',{'artworks':artworks,'page_obj':page_obj})
+    return render(request,'artnet_app/home.html',{'artworks':artworks,'page_obj':page_obj})
 
 @login_required
 def profileview(request):
@@ -38,7 +38,7 @@ def profileview(request):
     artworks=ArtWork.objects.filter(author=request.user.id)
     artstyles=ArtStyle.objects.filter(art_author=request.user.id)
     
-    return render(request,'artnetapp/profile.html',{'artworks':artworks,'artstyles':artstyles})
+    return render(request,'artnet_app/profile.html',{'artworks':artworks,'artstyles':artstyles})
 
 @login_required
 def create_artwork_view(request):
@@ -62,7 +62,7 @@ def create_artwork_view(request):
             created_artwork=process_image(ordinary_image_url,artwork_image_url)#api call need to be carefull
             user_instance = request.user
             #if 'http://' not in get_artwork_url:
-            #    return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+            #    return render(request, 'artnet_app/artwork_creation_unsuccessfull.html')
             artwork = ArtWork()
             artstyle = ArtStyle()
             artwork.name = artwork_name
@@ -82,14 +82,14 @@ def create_artwork_view(request):
                 artwork_file_name=str(artwork_name+".jpg")
                 artwork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(created_artwork),name=artwork_file_name),save=True)
                 
-                return render(request, 'artnetapp/artwork_creation_successfull.html', {'artwork':artwork})
+                return render(request, 'artnet_app/artwork_creation_successfull.html', {'artwork':artwork})
             else:
-                return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+                return render(request, 'artnet_app/artwork_creation_unsuccessfull.html')
              
     else:
         form=Imageform()
         
-    return render(request, 'artnetapp/artwork_create.html', {'form': form})
+    return render(request, 'artnet_app/artwork_create.html', {'form': form})
 
 @login_required
 def famousArtWorkCreation(request):
@@ -121,13 +121,13 @@ def famousArtWorkCreation(request):
                 artwork_file_name=str(artwork_name+".jpg")
                 artwork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(created_artwork),name=artwork_file_name),save=True)
                 
-                return render(request, 'artnetapp/artwork_creation_successfull.html', {'artwork':artwork})
+                return render(request, 'artnet_app/artwork_creation_successfull.html', {'artwork':artwork})
             else:
-                return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+                return render(request, 'artnet_app/artwork_creation_unsuccessfull.html')
     
     else:
         form=ArtWork_with_Famous_ArtStyle()    
-    return render(request,'artnetapp/artwork_create_with_famous_artstyle.html',{'form':form})
+    return render(request,'artnet_app/artwork_create_with_famous_artstyle.html',{'form':form})
 
 
 @login_required
@@ -147,14 +147,14 @@ def artStyleSubmitView(request):
     else:
         print("empty")
         form=ArtStyleForm()
-    return render(request,'artnetapp/artstyle_submit.html',{'form':form})
+    return render(request,'artnet_app/artstyle_submit.html',{'form':form})
 
 class ProfileDetailView(generic.DetailView):
     """
         Generic class based view for detail view of user profile
     """
     model=Profile
-    template_name='artnetapp/profile_detail.html'
+    template_name='artnet_app/profile_detail.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         displayed_user=self.get_object()
@@ -169,7 +169,7 @@ class ProfileListView(generic.ListView):
         Generic class based view for list view of user profiles
     """
     model=Profile
-    template_name='artnetapp/profile_list.html'
+    template_name='artnet_app/profile_list.html'
     
 class ArtWorkListView(generic.ListView):
     """
@@ -257,12 +257,12 @@ def like_artwork(request,id):
             print(f"User ID: {request.user.id} Liked artwork Artwork ID: {artwork.id}.")
             artwork.likes.add(request.user)
             artwork.save() 
-            return render( request, 'artnetapp/partials/like_area.html', context={'artwork':artwork})
+            return render( request, 'artnet_app/partials/like_area.html', context={'artwork':artwork})
         else:
             print(f"User ID: {request.user.id} unliked Artwork ID: {artwork.id}.")
             artwork.likes.remove(request.user)
             artwork.save() 
-            return render( request, 'artnetapp/partials/like_area.html', context={'artwork':artwork})    
+            return render( request, 'artnet_app/partials/like_area.html', context={'artwork':artwork})    
 
 
 
@@ -272,7 +272,7 @@ def searchview(request):
         artworks=ArtWork.objects.filter(name__icontains=q)
         users=User.objects.filter(username__icontains=q)
         artstyles=ArtStyle.objects.filter(style_name__icontains=q)
-        return render(request,'artnetapp/search.html',{'users':users,'artworks':artworks,'artstyles':artstyles})
+        return render(request,'artnet_app/search.html',{'users':users,'artworks':artworks,'artstyles':artstyles})
     
-    return render(request,'artnetapp/search.html',{'users':None,'artworks':None})
+    return render(request,'artnet_app/search.html',{'users':None,'artworks':None})
     
