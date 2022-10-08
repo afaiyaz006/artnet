@@ -35,7 +35,7 @@ class Art:
             self.content_image=np.array(self.content_image)
             self.style_image=np.array(Image.open(style_image_path))
 
-            self.content_image = self.content_image.astype(np.float32)[np.newaxis, ...] / 255.
+            self.content_image = self.content_image.astype(np.float32)[np.newaxis, ...]/255.
             self.style_image = self.style_image.astype(np.float32)[np.newaxis, ...] / 255.
         # Optionally resize the images. It is recommended that the style image is about
         # 256 pixels (this size was used when training the style transfer network).
