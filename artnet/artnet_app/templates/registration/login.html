@@ -1,7 +1,7 @@
 {% extends 'artnet_app/base.html' %}
 
 {% block content %}
-  <h1>Please Login </h1>
+ 
   {% if form.errors %}
     <code>Your username and password didn't match. Please try again.</code>
   {% endif %}
@@ -31,7 +31,7 @@
       <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
     {% endif %}
-  {% endif %}
+  
 
   
 

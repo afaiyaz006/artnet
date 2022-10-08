@@ -37,3 +37,11 @@
 <footer>
     Copyright © 2022 Team Lazy Monkey
 </footer>
+<!--htmx script for partial hydration-->
+<script src="{% static 'js/htmx.min.js' %}"></script>
+<script>
+    document.body.addEventListener('htmx:configRequest', (e) => {
+      e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+      })
+</script>
+</html>

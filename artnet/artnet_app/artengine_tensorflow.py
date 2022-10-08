@@ -12,7 +12,7 @@ import random
 class Art:
     def __init__(self):
         print("Initialized>>>")
-        self.hub_module = hub.load(str(BASE_DIR)+'\\artnet_app\\'+'\magenta_arbitrary-image-stylization-v1-256_2\\')
+        self.hub_module = hub.load(str(BASE_DIR)+'\magenta_arbitrary-image-stylization-v1-256_2\\')
         self.content_image=None
         self.style_image=None
     

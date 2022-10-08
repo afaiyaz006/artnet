@@ -82,9 +82,9 @@ def create_artwork_view(request):
                 artwork_file_name=str(artwork_name+".jpg")
                 artwork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(created_artwork),name=artwork_file_name),save=True)
                 
-                return render(request, 'artnet_app/artwork_creation_successfull.html', {'artwork':artwork})
+                return render(request, 'artnet_app/artwork_creation_successful.html', {'artwork':artwork})
             else:
-                return render(request, 'artnet_app/artwork_creation_unsuccessfull.html')
+                return render(request, 'artnet_app/artwork_creation_unsuccessful.html')
              
     else:
         form=Imageform()
