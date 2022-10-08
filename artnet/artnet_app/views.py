@@ -92,6 +92,60 @@ def create_artwork_view(request):
     return render(request, 'artnet_app/artwork_create.html', {'form': form})
 
 @login_required
+def create_artwork_with_selected_style_view(request):
+    """
+        Processing image uploaded by user
+    """
+    if request.method=='POST':
+        form=ArtWork_with_selected_artstyle_form(request.POST,request.FILES)
+        if  form.is_valid():
+            form.save()
+            form_obj=form.instance
+            artwork_name=form.cleaned_data['artwork_name']
+            artstyle=request.session.get('artstyle_id',None)
+            associated_artstyle=ArtStyle.objects.filter(pk=artstyle)[0]
+            
+            if not associated_artstyle:
+                return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+
+            ordinary_image_url=form_obj.ordinary_image.path
+            artstyle_image_url=associated_artstyle.artStyle_image.path
+            
+
+            created_artwork=process_image(ordinary_image_url,artstyle_image_url)#api call
+            user_instance=request.user
+
+            artwork=ArtWork()
+            
+
+            artwork.name=artwork_name
+            artwork.author=user_instance
+            
+            print(ordinary_image_url)
+            print(artstyle_image_url)
+
+          
+            if created_artwork:
+                #artstyle is already saved so just making it the foreign key of the new artwork
+                artwork.artstyle_used=associated_artstyle
+
+                #saving the artwork
+                artwork_file_name=str(artwork_name+".jpg")
+                artwork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(created_artwork),name=artwork_file_name),save=True)
+                
+                return render(request, 'artnetapp/artwork_creation_successfull.html', {'artwork':artwork})
+            else:
+                return render(request, 'artnetapp/artwork_creation_unsuccessfull.html')
+
+    else:
+        artstyle=request.session.get('artstyle_id',None)
+        associated_artstyle=ArtStyle.objects.filter(pk=artstyle)[0]
+        artstyle_name=associated_artstyle.style_name
+        form=ArtWork_with_selected_artstyle_form()
+        
+    return render(request,'artnetapp/artwork_create_with_selected_artstyle.html',{'form':form,'choosen_style':artstyle_name})
+
+@login_required
 def famousArtWorkCreation(request):
     if request.method=='POST':
         form=ArtWork_with_Famous_ArtStyle(request.POST,request.FILES)
