@@ -1,5 +1,7 @@
 {% extends 'artnet_app/base.html' %} 
 {% block content %}
+<article>
+<figure>
 <h3>
     Welcome!
 </h3>
@@ -55,6 +57,8 @@
                 Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}.
             </figure>
         </article>
+    </figure>
+</article>
    
 {% endif %}
 {% endblock %}
