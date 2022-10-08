@@ -1,0 +1,8 @@
+{% extends 'artnet_app/base.html' %}
+{% block content%}
+<h3>We all have bad days!</h3>
+<article>
+    Our servers were unable to process the request.<br>
+    Please <a href="{% url 'create_artwork' %}">try again.</a>
+</article>
+{% endblock %}
