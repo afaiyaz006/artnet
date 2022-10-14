@@ -1,2 +1,2 @@
 # artnet
-Artnet is a social network based on sharing artworks
+Artnet is a image sharing social network with a simple twist it can transform images into artwork based on choosen artstyle.
