@@ -281,6 +281,24 @@ class ArtWorkCommentCreate(LoginRequiredMixin,generic.CreateView):
         # Get the artwork from id and add it to the context
         context['artwork'] = get_object_or_404(ArtWork, pk = self.kwargs['pk'])
         return context
+        
+    def form_valid(self, form):
+        """
+        Add author and associated artwork to form data before setting it as valid (so it is saved to model)
+        """
+        #Add logged-in user as author of comment
+        form.instance.author = self.request.user
+        #Associate comment with artwork based on passed id
+        form.instance.artwork=get_object_or_404(ArtWork, pk = self.kwargs['pk'])
+        # Call super-class form validation behaviour
+        return super(ArtWorkCommentCreate, self).form_valid(form)
+
+    def get_success_url(self): 
+        """
+        After posting comment return to associated artwork.
+        """
+        return reverse('artwork-detail', kwargs={'pk': self.kwargs['pk'],})
+
 
 def signup(request):
     if request.method=='POST':
