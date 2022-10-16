@@ -6,8 +6,8 @@
     Welcome!
 </h3>
 
-
-<img  alt="welcome image" src="https://i.ibb.co/QQWzZzJ/Artnet.png"/>
+{% load static %}
+<img  alt="welcome image" src="{% static 'Artnet.png' %}"/>
 {%if user.is_authenticated %}
 <h1>
     &#127863; Hello {{user.first_name}} {{user.last_name}}!
