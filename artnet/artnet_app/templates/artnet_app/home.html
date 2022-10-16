@@ -12,9 +12,12 @@
 <h1>
     &#127863; Hello {{user.first_name}} {{user.last_name}}!
 </h1>
+{% else %}
+
+    <a href="{% url 'login' %}" ><button>Login</button></a>
+    <a href="{% url 'signup' %}" ><button> Signup </button></a>
+
 {% endif %}
-<a href="{% url 'login' %}" ><button>Login</button></a>
-<a href="{% url 'signup' %}" ><button> Signup </button></a>
         {% if artworks %}
             <h3>
                Here is your daily dose of artworks:
