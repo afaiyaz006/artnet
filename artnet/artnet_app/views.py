@@ -196,7 +196,7 @@ def artStyleSubmitView(request):
             artstyle.style_name=form.cleaned_data['style_name']
             artstyle.artStyle_image=form.cleaned_data['artStyle_image']
             artstyle.save()
-            return redirect(profileview)
+            return render(request,'artnet_app/artstyle_submission_successful.html',{'artstyle':artstyle})
             
     else:
         print("empty")
