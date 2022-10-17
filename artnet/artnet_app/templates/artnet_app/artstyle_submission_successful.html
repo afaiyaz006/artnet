@@ -1,0 +1,8 @@
+{% extends 'artnet_app/base.html' %}
+{% block content%}
+{% if artstyle %}
+    <h1>Artstyle submission successful!</h1>
+    <img src='{{artstyle.artStyle_image.url}}'/>
+    
+{% endif %}
+{% endblock %} 
