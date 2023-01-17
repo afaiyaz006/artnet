@@ -11,6 +11,8 @@ django = "*"
 jupyter = "*"
 matplotlib = "*"
 selenium = "*"
+nbconvert = "*"
+pandadoc = "*"
 
 [dev-packages]
 
