@@ -37,3 +37,20 @@ Runserver by typing
 ```
 python manage.py runserver
 ```
+Alternatively 
+# For Docker
+Just pull the repo
+
+pull the docker image
+```
+docker pull faiyaz006/artnet
+```
+
+then just run
+```
+docker run -p 8000:8000 -it faiyaz006/artnet:1.0 /bin/sh
+python manage.py runserver 0.0.0.0:8000
+```
+You can then access the webserver from http://127.0.0.1:8000
+
+
