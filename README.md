@@ -37,15 +37,13 @@ Runserver by typing
 ```
 python manage.py runserver
 ```
-Alternatively 
+
 # For Docker
-
-
-Pull the docker image
+Alternatively docker can be used to run the webapp for that,
+pull the docker image by
 ```
 docker pull faiyaz006/artnet
 ```
-
 then just run
 ```
 docker run -p 8000:8000 -it faiyaz006/artnet:1.0 /bin/sh
