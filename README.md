@@ -39,9 +39,9 @@ python manage.py runserver
 ```
 Alternatively 
 # For Docker
-Just pull the repo
 
-pull the docker image
+
+Pull the docker image
 ```
 docker pull faiyaz006/artnet
 ```
