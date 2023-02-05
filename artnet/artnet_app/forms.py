@@ -1,5 +1,5 @@
 from django import forms
-from .models import ImageUploadModel, ImageUploadModel_2,ArtStyle
+from .models import ImageUploadModel, ImageUploadModel_2,ArtStyle,TextPromptModel
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import GENDERS,OCCUPATIONS
@@ -21,6 +21,13 @@ class Imageform(forms.ModelForm):
         model=ImageUploadModel
         fields=('artwork_name','ordinary_image','artwork_image')
 
+class TextPromptForm(forms.ModelForm):
+    """
+        Form for text prompt of ai generated
+    """
+    class Meta:
+        model=TextPromptModel
+        fields=('__all__')
 class ArtWork_with_selected_artstyle_form(forms.ModelForm):
     """
         Form for the upload model of artwork with selected artstyle

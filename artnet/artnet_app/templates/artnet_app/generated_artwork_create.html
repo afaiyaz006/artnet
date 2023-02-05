@@ -1,0 +1,18 @@
+{% extends 'artnet_app/base.html'%}
+{%block content%}
+{% if errors %}
+    <code>{{errors}}</code>
+    <code>If you are adminstrator please check if the backend url is ok or not.</code>
+{% endif %}
+<h1> 🌇 </h1>
+<h1> Create artwork ! </h1>
+<form method="post" enctype="multipart/form-data">
+    <article>
+    {% csrf_token %}
+    <table>
+     {{ form.as_table }}
+    </table>
+    <button type="submit">Create</button>
+    </article>
+</form>
+{% endblock %}

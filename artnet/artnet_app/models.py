@@ -106,6 +106,13 @@ class ImageUploadModel_2(models.Model):
         artwork_name=models.CharField(max_length=200,default=None,help_text='Enter a artwork name')
         ordinary_image=models.ImageField(upload_to='temp_image_upload_2/',validators=[FileExtensionValidator(['jpg','jpeg'])])
 
+class TextPromptModel(models.Model):
+    """
+        This model is used for collecting text prompt
+    """
+    prompt=models.TextField(max_length=200,default=None,help_text='Enter a what you want to draw.')
+
+
 
 class ArtComment(models.Model):
     """
@@ -131,5 +138,14 @@ class ArtComment(models.Model):
             titlestring=self.description
         return titlestring
 
-    
+class GeneratedArtwork(models.Model):
+    """
+        Model for storing generated artwork
+    """    
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    prompt=models.TextField(max_length=500,help_text="Type Your Artwork Prompt here.")
+    artwork_image=models.ImageField(upload_to='artwork_images/')
 
+
+class BackEnd(models.Model):
+    back_end_url=models.URLField(max_length=1000)

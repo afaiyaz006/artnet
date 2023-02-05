@@ -7,6 +7,7 @@ from .views import signup,ArtWorkListView,ArtWorkDetailView
 from .views import famousArtWorkCreation,ArtStyleDetailView
 from .views import ProfileDetailView,ProfileListView,like_artwork
 from .views import searchview
+from .views import generatedArtworkCreation
 urlpatterns = [
     path('',home,name='home'),
     path('signup',signup,name='signup'),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('users',ProfileListView.as_view(),name='user-list'),
     path('like/<int:id>',like_artwork,name='like_artwork'),
     path('search',searchview,name='search'),
+    path('diffusion_art',generatedArtworkCreation,name='diffusion_art')
 ]

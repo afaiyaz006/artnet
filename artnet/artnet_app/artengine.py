@@ -1,8 +1,10 @@
 
 from artnet.settings import BASE_DIR
 from .artengine_tensorflow import Art
+from .artengine_stable_diffusion import CreateArt
 import PIL.Image as Image
 import io
+
 
 
 def process_image(content_image_path, style_image_path)->Image:
@@ -23,3 +25,13 @@ def image_to_byte(image: Image) -> bytes:
     image.save(buffer,format='JPEG')
     byte_image=buffer.getvalue()
     return byte_image
+
+
+
+def create_generated_artwork(text:str):
+    createArt=CreateArt(text)
+    try:
+        created_artwork=createArt.process()
+        return created_artwork
+    except Exception as e:
+        print(f"{e}")

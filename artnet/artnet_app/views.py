@@ -2,9 +2,9 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,authenticate
-from .artengine import process_image,image_to_byte
-from artnet_app.forms import Imageform,ArtWork_with_selected_artstyle_form, SignupForm,ArtStyleForm
-from .models import ArtComment, ArtWork,ArtStyle,SimpleImageUpload,Profile
+from .artengine import process_image,image_to_byte,create_generated_artwork
+from artnet_app.forms import Imageform,ArtWork_with_selected_artstyle_form, SignupForm,ArtStyleForm,TextPromptForm
+from .models import ArtComment, ArtWork,ArtStyle,SimpleImageUpload,Profile,GeneratedArtwork
 from django.core.files.base import ContentFile
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -347,4 +347,24 @@ def searchview(request):
         return render(request,'artnet_app/search.html',{'users':users,'artworks':artworks,'artstyles':artstyles})
     
     return render(request,'artnet_app/search.html',{'users':None,'artworks':None})
-    
+
+@login_required
+def generatedArtworkCreation(request):
+    if request.method=='POST':
+        form=TextPromptForm(request.POST)
+        if form.is_valid():
+            prompt=form.cleaned_data['prompt']
+            artwork=create_generated_artwork(prompt)
+            if artwork==None:
+                return render(request,'artnet_app/generated_artwork_create.html',{'form':form,'errors':"Server is down or having difficulties processing.Please try again or whatever."})
+            print(f"What: {artwork}")
+            generatedArtWork=GeneratedArtwork()
+            generatedArtWork.author=request.user
+            artwork_file_name=str(prompt+".jpg")
+            generatedArtWork.artwork_image.save(artwork_file_name,ContentFile(image_to_byte(artwork),name=artwork_file_name),save=True)
+            return render(request, 'artnet_app/artwork_creation_successful.html', {'artwork':generatedArtWork})
+            
+    else:
+        print("empty")
+        form=TextPromptForm()
+    return render(request,'artnet_app/generated_artwork_create.html',{'form':form})
