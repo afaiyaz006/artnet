@@ -1,5 +1,5 @@
 # artnet
-Artnet is a photo sharing social network with a simple twist: it transforms photos into artwork based on user given style and also styles from famous artwork.User can like or comment on certain artpost.It is a group project for our cse-322 software engineering course.
+Artnet is a photo sharing social network with a simple twist: it transforms photos into artwork based on user given style and also styles from famous artwork.User can like or comment on certain artpost.
 
 # Installation
 First clone the repository
@@ -37,15 +37,13 @@ Runserver by typing
 ```
 python manage.py runserver
 ```
-Alternatively 
+
 # For Docker
-
-
-Pull the docker image
+Alternatively docker can be used to run the webapp for that,
+pull the docker image by
 ```
 docker pull faiyaz006/artnet
 ```
-
 then just run
 ```
 docker run -p 8000:8000 -it faiyaz006/artnet:1.0 /bin/sh
