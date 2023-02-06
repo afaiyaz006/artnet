@@ -13,6 +13,7 @@ matplotlib = "*"
 selenium = "*"
 nbconvert = "*"
 pandadoc = "*"
+openai = "*"
 
 [dev-packages]
 
